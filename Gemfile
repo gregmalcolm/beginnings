@@ -25,6 +25,7 @@ group :development, :test do
   gem 'byebug'
   gem 'rspec-rails'
   gem 'teaspoon-jasmine'
+  gem 'pry-byebug'
 end
 
 group :test do
@@ -40,5 +41,6 @@ group :development do
   gem 'guard-rspec', require: false
   gem 'guard-cucumber'
   gem 'guard-teaspoon'
+  gem 'pry-rails'
 end
 
