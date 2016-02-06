@@ -24,11 +24,7 @@ RSpec.describe ExamplesController, type: :controller do
   # Example. As you add validations to Example, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
-
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    { name: "bob", favorite_color: "green" }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -87,31 +83,13 @@ RSpec.describe ExamplesController, type: :controller do
       end
     end
 
-    context "with invalid params" do
-      it "assigns a newly created but unsaved example as @example" do
-        post :create, {:example => invalid_attributes}, valid_session
-        expect(assigns(:example)).to be_a_new(Example)
-      end
-
-      it "re-renders the 'new' template" do
-        post :create, {:example => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
-      end
-    end
   end
 
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        { name: "roberta", favorite_color: "tartan" }
       }
-
-      it "updates the requested example" do
-        example = Example.create! valid_attributes
-        put :update, {:id => example.to_param, :example => new_attributes}, valid_session
-        example.reload
-        skip("Add assertions for updated state")
-      end
 
       it "assigns the requested example as @example" do
         example = Example.create! valid_attributes
@@ -126,19 +104,6 @@ RSpec.describe ExamplesController, type: :controller do
       end
     end
 
-    context "with invalid params" do
-      it "assigns the example as @example" do
-        example = Example.create! valid_attributes
-        put :update, {:id => example.to_param, :example => invalid_attributes}, valid_session
-        expect(assigns(:example)).to eq(example)
-      end
-
-      it "re-renders the 'edit' template" do
-        example = Example.create! valid_attributes
-        put :update, {:id => example.to_param, :example => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
-      end
-    end
   end
 
   describe "DELETE #destroy" do
