@@ -10,7 +10,8 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 
 gem 'jquery-rails'
-gem 'jbuilder', '~> 2.0'
+#gem 'jbuilder', '~> 2.0'
+gem 'active_model_serializers'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'bcrypt', '~> 3.1.10'
