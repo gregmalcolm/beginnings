@@ -1,4 +1,5 @@
 class ExamplesController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_example, only: [:show, :edit, :update, :destroy]
 
   # GET /examples
