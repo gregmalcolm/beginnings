@@ -39,5 +39,6 @@ group :development do
   gem 'guard'
   gem 'guard-rspec', require: false
   gem 'guard-cucumber'
+  gem 'guard-teaspoon'
 end
 
