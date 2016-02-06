@@ -38,5 +38,6 @@ group :development do
   gem 'spring'
   gem 'guard'
   gem 'guard-rspec', require: false
+  gem 'guard-cucumber'
 end
 
