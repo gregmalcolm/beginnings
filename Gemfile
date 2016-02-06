@@ -19,6 +19,7 @@ gem 'puma'
 gem 'figaro'
 gem 'slim-rails'
 gem 'devise'
+gem 'pundit'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
