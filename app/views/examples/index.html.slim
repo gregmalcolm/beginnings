@@ -1,0 +1,23 @@
+h1 Listing examples
+
+table
+  thead
+    tr
+      th Name
+      th Favorite color
+      th
+      th
+      th
+
+  tbody
+    - @examples.each do |example|
+      tr
+        td = example.name
+        td = example.favorite_color
+        td = link_to 'Show', example
+        td = link_to 'Edit', edit_example_path(example)
+        td = link_to 'Destroy', example, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Example', new_example_path
