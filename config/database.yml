@@ -10,7 +10,7 @@ development:
   database: beginnings_development
   #password:
 
-test:
+test: &test
   <<: *default
   database: beginnings_test
   #password:
@@ -20,3 +20,6 @@ production:
   database: beginnings_production
   username: beginnings
   password: <%= ENV['BEGINNINGS_DATABASE_PASSWORD'] %>
+
+cucumber:
+  <<: *test
