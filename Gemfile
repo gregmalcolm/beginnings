@@ -24,6 +24,7 @@ gem 'puma'
 group :development, :test do
   gem 'byebug'
   gem 'rspec-rails'
+  gem 'teaspoon-jasmine'
 end
 
 group :test do
