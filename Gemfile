@@ -17,6 +17,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'puma'
+gem 'figaro'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -26,6 +27,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'teaspoon-jasmine'
   gem 'pry-byebug'
+  gem 'factory_girl_rails'
 end
 
 group :test do
