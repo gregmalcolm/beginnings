@@ -1,0 +1,24 @@
+header
+  nav.navbar.navbar-dark.bg-primary.navbar-fixed-top
+    h1.navbar-brand
+      | Welcome
+    ul.nav.navbar-nav
+      li.nav-item.active
+        = link_to "Home", root_url, class: "nav-link"
+    ul.nav.navbar-nav.pull-xs-right
+      - if user_signed_in?
+        li.nav-item
+          .btn-group
+            button.btn.btn-light.btn-info-outline.dropdown-toggle.nav-username[
+              aria-expanded="false" 
+              aria-haspopup="true" 
+              data-toggle="dropdown" 
+              type="button"]
+                = current_user.email
+            .dropdown-menu
+              = link_to "Sign out", destroy_user_session_path, method: "delete", class: "dropdown-item"
+      - else
+        li.nav-item
+          = link_to "Log in", new_user_session_url, class: "nav-link"
+        li.nav-item
+          = link_to "Sign up", new_user_registration_url, class: "nav-link"
