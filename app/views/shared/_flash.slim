@@ -1,4 +1,6 @@
-= content_tag(:div, flash[:error],   id: "flash-error")   if flash[:error]
-= content_tag(:div, flash[:notice],  id: "flash-notice")  if flash[:notice]
-= content_tag(:div, flash[:alert],   id: "flash-alert")   if flash[:alert]
-= content_tag(:div, flash[:success], id: "flash-success") if flash[:success]
+.container
+  - flash.each do |msg_type, message|
+    .alert.alert-dismissible.fade.in role="alert" class="#{alert_type_from_flash(msg_type)}"
+      button.close aria-label="Close" data-dismiss="alert" type="button" 
+        span aria-hidden="true" ×
+      = message
