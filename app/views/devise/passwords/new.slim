@@ -1,0 +1,12 @@
+.container
+  h2[style="text-align: center;"] Forgot your password?
+  = devise_error_messages!
+  .sign-in-container.center-block
+    = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+      .field
+        = f.label :email, class: "sr-only"
+        = f.email_field :email, autofocus: true, placeholder: "Email address", class: "form-control"
+      .actions
+        br
+        = f.submit "Password reset", class: "btn btn-lg btn-primary btn-block"
+    = render "devise/shared/links"

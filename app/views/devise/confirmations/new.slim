@@ -1,0 +1,12 @@
+.container
+  h2[style="text-align: center;"] Resend confirmation instructions
+  = devise_error_messages!
+  .sign-in-container.center-block
+    = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+      .field
+        = f.label :email, class: "sr-only"
+        = f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), placeholder: "Email address", class: "form-control"
+      .actions
+        br
+        = f.submit "Resend confirmation instructions", class: "btn btn-lg btn-primary btn-block"
+    = render "devise/shared/links"
