@@ -12,7 +12,8 @@
         | Currently waiting confirmation for: #{resource.unconfirmed_email}
     .field
       = f.label :password
-      i (leave blank if you don't want to change it)
+      i 
+        | (leave blank if you don't want to change it)
       br/
       = f.password_field :password, autocomplete: "off"
     .field
