@@ -53,5 +53,6 @@ group :development do
   gem 'guard-cucumber'
   gem 'guard-teaspoon'
   gem 'pry-rails'
+  gem 'ruby_gntp'
 end
 
