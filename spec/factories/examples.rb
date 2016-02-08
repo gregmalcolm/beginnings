@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :example do
-    name "MyString"
-    favorite_color "MyString"
+    name "twine"
+    favorite_color "purple"
   end
 end
