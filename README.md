@@ -37,3 +37,14 @@ Project is set up with cucumber, respec and teaspoon.
 guard
 ```
 
+### Renaming the project
+
+Caveat: You must be in the root folder and you must use snake case
+
+```
+bin/rename_project the_new_name
+```
+
+Note: This script will leave the bin folder and .ruby_version alone.
+
+Afterwards you’ll need to follow the steps above to recreate the databases
