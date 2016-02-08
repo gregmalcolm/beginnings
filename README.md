@@ -29,3 +29,11 @@ rake db:create
 
 ```
 
+### Tests
+
+Project is set up with cucumber, respec and teaspoon.
+
+```
+guard
+```
+
