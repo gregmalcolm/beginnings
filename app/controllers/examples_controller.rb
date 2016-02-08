@@ -5,7 +5,8 @@ class ExamplesController < ApplicationController
   # GET /examples
   # GET /examples.json
   def index
-    @examples = Example.all
+    @examples = Example.page(page)
+                       .per(per_page)
   end
 
   # GET /examples/1

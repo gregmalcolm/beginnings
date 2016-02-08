@@ -1,13 +1,11 @@
 require 'rails_helper'
 
 describe ExamplesController do
+  include ExampleHelper
 
   let(:user) { create(:user) }
   before { sign_in :user, user }
-
-  # This should return the minimal set of attributes required to create a valid
-  # Example. As you add validations to Example, be sure to
-  # adjust the attributes here as well.
+  
   let(:valid_attributes) {
     { name: "bob", favorite_color: "green" }
   }
@@ -18,53 +16,62 @@ describe ExamplesController do
   let(:valid_session) { {} }
 
   describe "GET #index" do
-    it "assigns all examples as @examples" do
-      example = Example.create! valid_attributes
-      get :index, {}, valid_session
-      expect(assigns(:examples)).to eq([example])
+    let!(:examples) { spawn_examples }
+    context "without filtering" do
+      before { get :index, {}, valid_session }
+      it { expect(assigns(:examples).size).to be == 20 }
+      it { expect(response.code.to_i).to be == 200  }
+    end
+
+    context "page 2" do
+      before { get :index, { page: 2 }, valid_session }
+      it { expect(assigns(:examples).size).to be == 5 }
+      it { expect(response.code.to_i).to be == 200  }
     end
   end
 
   describe "GET #show" do
-    it "assigns the requested example as @example" do
-      example = Example.create! valid_attributes
-      get :show, {:id => example.to_param}, valid_session
-      expect(assigns(:example)).to eq(example)
+    let!(:examples) { spawn_examples }
+    let(:example) { examples.last }
+    context "retrieves an example" do
+      before { get :show, {:id => example.id}, valid_session }
+      it { expect(response.code.to_i).to be == 200  }
+      it { expect(assigns(:example)).to be == example }
     end
   end
 
   describe "GET #new" do
-    it "assigns a new example as @example" do
-      get :new, {}, valid_session
-      expect(assigns(:example)).to be_a_new(Example)
+    context "creates a new example" do
+      before { get :new, {}, valid_session }
+      it { expect(response.code.to_i).to be == 200  }
+      it { expect(assigns(:example)).to be_a_new(Example) }
     end
   end
 
   describe "GET #edit" do
-    it "assigns the requested example as @example" do
-      example = Example.create! valid_attributes
-      get :edit, {:id => example.to_param}, valid_session
-      expect(assigns(:example)).to eq(example)
+    let!(:examples) { spawn_examples }
+    let(:example) { examples.last }
+    context "starts editing an example" do
+      before { get :edit, {id: example.to_param}, valid_session }
+      it { expect(response.code.to_i).to be == 200  }
+      it { expect(assigns(:example)).to be == example }
     end
   end
 
   describe "POST #create" do
     context "with valid params" do
-      it "creates a new Example" do
-        expect {
-          post :create, {:example => valid_attributes}, valid_session
-        }.to change(Example, :count).by(1)
+      let(:example_attr) { { example: attributes_for(:example) } }
+      context "creates a new Example" do
+        it { expect { post :create, example_attr, valid_session
+                    }.to change(Example, :count).by(1) }
       end
 
-      it "assigns a newly created example as @example" do
-        post :create, {:example => valid_attributes}, valid_session
-        expect(assigns(:example)).to be_a(Example)
-        expect(assigns(:example)).to be_persisted
-      end
-
-      it "redirects to the created example" do
-        post :create, {:example => valid_attributes}, valid_session
-        expect(response).to redirect_to(Example.last)
+      context "redirects to the show page after creation" do
+        before { post :create, example_attr, valid_session }
+        it { expect(response.code.to_i).to be == 302  }
+        it { expect(assigns(:example)).to be == Example.last }
+        it { expect(assigns(:example)).to be_persisted }
+        it { expect(response).to redirect_to(Example.last) }
       end
     end
 
@@ -72,37 +79,34 @@ describe ExamplesController do
 
   describe "PUT #update" do
     context "with valid params" do
-      let(:new_attributes) {
-        { name: "roberta", favorite_color: "tartan" }
-      }
+      let(:attr) { { name: "roberta", 
+                     favorite_color: "tartan" } }
+      let!(:examples) { spawn_examples }
+      let(:example) { examples.last }
 
-      it "assigns the requested example as @example" do
-        example = Example.create! valid_attributes
-        put :update, {:id => example.to_param, :example => valid_attributes}, valid_session
-        expect(assigns(:example)).to eq(example)
-      end
-
-      it "redirects to the example" do
-        example = Example.create! valid_attributes
-        put :update, {:id => example.to_param, :example => valid_attributes}, valid_session
-        expect(response).to redirect_to(example)
+      context "updates the record" do
+        before { put :update, { id: example.to_param, example: attr}, valid_session }
+        it { expect(response.code.to_i).to be == 302  }
+        it { expect(assigns(:example)).to be == example }
+        it { expect(response).to redirect_to(example) }
       end
     end
 
   end
 
   describe "DELETE #destroy" do
-    it "destroys the requested example" do
-      example = Example.create! valid_attributes
-      expect {
-        delete :destroy, {:id => example.to_param}, valid_session
-      }.to change(Example, :count).by(-1)
+    let!(:examples) { spawn_examples }
+    let(:example) { examples.last }
+    let(:attr) { { id: example.to_param } }
+    
+    context "destroys the requested example" do
+      it { expect { delete :destroy, attr, valid_session
+                  }.to change(Example, :count).by(-1) }
     end
 
-    it "redirects to the examples list" do
-      example = Example.create! valid_attributes
-      delete :destroy, {:id => example.to_param}, valid_session
-      expect(response).to redirect_to(examples_url)
+    context "redirects to the examples list" do
+      before { delete :destroy, attr, valid_session }
+      it { expect(response).to redirect_to(examples_url) }
     end
   end
 

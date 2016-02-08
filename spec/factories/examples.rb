@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :example do
-    name "twine"
+    sequence(:name) { |n| "#{n}mm thick twine" }
     favorite_color "purple"
   end
 end
