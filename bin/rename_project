@@ -1,5 +1,9 @@
 #!/usr/bin/env ruby
 
+def camelize(str)
+  str.to_s.split("_").map { |w| "#{w[0].upcase}#{w[1..-1]}" }.join("")
+end
+
 if ARGV.size == 0
   puts "Usage: bin/rename_project new_project_name_in_snake_case\n"
   puts "Make sure you are in the base folder first"
@@ -7,5 +11,5 @@ else
   new_name = ARGV[0]
   `grep -irl beginnings README.md app config | xargs sed -i '' 's/beginnings/#{new_name}/g'`
   `grep -irl beginnings README.md app config | xargs sed -i '' 's/BEGINNINGS/#{new_name.upcase}/g'`
-  `grep -irl beginnings README.md app config | xargs sed -i '' 's/Beginnings/#{new_name.titleize}/g'`
+  `grep -irl beginnings README.md app config | xargs sed -i '' 's/Beginnings/#{camelize(new_name)}/g'`
 end
